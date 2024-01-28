@@ -17,6 +17,6 @@ export function fetchCatByBreed(breedId) {
             if (!response.ok) {
                 throw new Error(response.status);
             }
-            return console.log(response.json());
+            return response.json();
         });
 };
