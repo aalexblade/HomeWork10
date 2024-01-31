@@ -6,6 +6,8 @@ import 'slim-select/dist/slimselect.css';
 
 const selector = document.querySelector('select.breed-select')
 const catInfo = document.querySelector('.cat-info')
+const loader = document.querySelector('.loader')
+const error = document.querySelector('.error')
 
 let arrBreedsId = []
 
