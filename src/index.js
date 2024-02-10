@@ -2,11 +2,17 @@ import { fetchBreeds, fetchCatByBreed } from "./cat-api"
 
 import SlimSelect from 'slim-select'
 import 'slim-select/dist/slimselect.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const selector = document.querySelector('select.breed-select')
 const catInfo = document.querySelector('.cat-info')
 const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
+
+// loader.classList.replace('loader', 'is-hidden')
+// error.classList.add('is-hidden')
+// catInfo.classList.add('is-hidden')
+
 
 let arrBreedsId = []
 
@@ -14,28 +20,43 @@ fetchBreeds()
     .then(data => {
         data.forEach(element => {
             arrBreedsId.push({ text: element.name, value: element.id });
-
         });
         new SlimSelect({
             select: selector,
             data: arrBreedsId,
         })
     })
-    .catch(error => console.error(error))
+    .catch(onFetchError)
 
 
 selector.addEventListener('change', onSelectorChange)
 
 function onSelectorChange(evt) {
+    loader.classList.replace('is-hidden', 'loader')
+    selector.classList.add('is-hidden')
+    catInfo.classList.add('is-hidden')
+
     const breedId = evt.currentTarget.value
 
-    if (breedId === 'abys') {
-        catInfo.innerHTML = ''
-    } else {
-        fetchCatByBreed(breedId)
-            .then(data => (catInfo.innerHTML = createMakcup(data)))
-            .catch(error => console.log(error))
-    }
+    fetchCatByBreed(breedId)
+        .then(data => {
+            catInfo.innerHTML = createMakcup(data)
+            loader.classList.replace('is-hidden', 'loader')
+            selector.classList.remove('is-hidden')
+        })
+        .catch(onFetchError)
+
+    // if (breedId === 'abys') {
+    //     catInfo.innerHTML = ''
+    // } else {
+    //     fetchCatByBreed(breedId)
+    //         .then(data => {
+    //             loader.classList.replace('is-hidden', 'loader')
+    //             selector.classList.remove('is-hidden')
+    //             catInfo.innerHTML = createMakcup(data)
+    //         })
+    //         .catch(onFetchError)
+    // }
 
 }
 
@@ -50,6 +71,17 @@ function createMakcup(arr) {
    <a href="${wikipedia_url}"> Wikipedia Info </a>
   </li>`
     ).join('')
+};
 
+function onFetchError(error) {
+    selector.classList.remove('is-hidden');
+    loader.classList.replace('loader', 'is-hidden');
+
+    Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
+        position: 'center-center',
+        timeout: 5000,
+        width: '400px',
+        fontSize: '24px'
+    });
 };
 
