@@ -9,10 +9,11 @@ const catInfo = document.querySelector('.cat-info')
 const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
 
-// loader.classList.replace('loader', 'is-hidden')
-// error.classList.add('is-hidden')
-// catInfo.classList.add('is-hidden')
 
+// catInfo.classList.replace('cat-info', 'hidden')
+// console.log(catInfo)
+error.style.visibility = "hidden"
+catInfo.style.visibility = 'hidden';
 
 let arrBreedsId = []
 
@@ -29,23 +30,33 @@ fetchBreeds()
     .catch(onFetchError)
 
 
+
+
 selector.addEventListener('change', onSelectorChange)
 
 function onSelectorChange(evt) {
-    loader.classList.replace('is-hidden', 'loader')
-    selector.classList.add('is-hidden')
-    catInfo.classList.add('is-hidden')
+    error.style.visibility = 'hidden';
+    loader.style.visibility = 'hidden';
+    catInfo.style.visibility = 'hidden'
+    // loader.style.visibility = 'hidden';
+
+    // loaderRef.classList.replace('loader', 'is-hidden');
+    // console.log(loaderRef.classList)
+    // loader.classList.replace('is-hidden', 'loader');
+    // console.log(loader.classList.value)
+    // selector.classList.add('is-hidden')
+    // catInfo.classList.add('is-hidden')
 
     const breedId = evt.currentTarget.value
 
     fetchCatByBreed(breedId)
         .then(data => {
             catInfo.innerHTML = createMakcup(data)
-            loader.classList.replace('is-hidden', 'loader')
-            selector.classList.remove('is-hidden')
+            catInfo.style.visibility = 'visible'
         })
         .catch(onFetchError)
 
+    // .finally(() => setTimeout(onFinally, 2000));
     // if (breedId === 'abys') {
     //     catInfo.innerHTML = ''
     // } else {
@@ -73,9 +84,10 @@ function createMakcup(arr) {
     ).join('')
 };
 
-function onFetchError(error) {
-    selector.classList.remove('is-hidden');
-    loader.classList.replace('loader', 'is-hidden');
+function onFetchError() {
+    loader.style.visibility = 'hidden';
+    error.style.visibility = "visible"
+    // error.classList.add('error')
 
     Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
         position: 'center-center',
@@ -84,4 +96,5 @@ function onFetchError(error) {
         fontSize: '24px'
     });
 };
+
 
