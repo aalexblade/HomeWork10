@@ -74,7 +74,7 @@ function onSelectorChange(evt) {
 function createMakcup(arr) {
     return arr.map(({ url, breeds: { 0: { name, temperament, description, wikipedia_url } } }) =>
         `<li class="list cats_list">
-    <img src="${url}" alt="${name}" weight="300px" height="300px">
+    <img src="${url}" alt="${name}">
     <h2>${name}</h2>
     <p>${description}</p>
     <h3>Temperament</h3>
