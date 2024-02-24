@@ -9,7 +9,7 @@ const catInfo = document.querySelector('.cat-info')
 const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
 
-
+// loader.classList.replace('loader', 'hidden')
 // catInfo.classList.replace('cat-info', 'hidden')
 // console.log(catInfo)
 error.style.visibility = "hidden"
@@ -53,8 +53,10 @@ function onSelectorChange(evt) {
         .then(data => {
             catInfo.innerHTML = createMakcup(data)
             catInfo.style.visibility = 'visible'
+            // loader.classList.replace('hidden', 'hidden')
         })
         .catch(onFetchError)
+    // .finally(breedId)
 
     // .finally(() => setTimeout(onFinally, 2000));
     // if (breedId === 'abys') {
@@ -85,16 +87,17 @@ function createMakcup(arr) {
 };
 
 function onFetchError() {
-    loader.style.visibility = 'hidden';
+    // loader.style.visibility = 'hidden';
     error.style.visibility = "visible"
     // error.classList.add('error')
 
-    Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
-        position: 'center-center',
-        timeout: 5000,
-        width: '400px',
-        fontSize: '24px'
-    });
+    Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!',
+        {
+            position: 'center-center',
+            timeout: 5000,
+            width: '400px',
+            fontSize: '24px'
+        });
 };
 
 
