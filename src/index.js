@@ -12,8 +12,8 @@ const error = document.querySelector('.error')
 // loader.classList.replace('loader', 'hidden')
 // catInfo.classList.replace('cat-info', 'hidden')
 // console.log(catInfo)
-error.style.visibility = "hidden"
-catInfo.style.visibility = 'hidden';
+// error.style.visibility = "hidden"
+// catInfo.style.visibility = 'hidden';
 
 let arrBreedsId = []
 
