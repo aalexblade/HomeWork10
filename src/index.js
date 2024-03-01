@@ -9,11 +9,11 @@ const catInfo = document.querySelector('.cat-info')
 const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
 
-// loader.classList.replace('loader', 'hidden')
-// catInfo.classList.replace('cat-info', 'hidden')
-// console.log(catInfo)
-// error.style.visibility = "hidden"
-// catInfo.style.visibility = 'hidden';
+loader.classList.replace('loader', 'is-hidden');
+// loader.style.visibility = "hidden"
+// loader.style.
+error.classList.add('is-hidden');
+catInfo.classList.add('is-hidden');
 
 let arrBreedsId = []
 
@@ -29,48 +29,23 @@ fetchBreeds()
     })
     .catch(onFetchError)
 
-
-
-
 selector.addEventListener('change', onSelectorChange)
 
 function onSelectorChange(evt) {
-    error.style.visibility = 'hidden';
-    loader.style.visibility = 'hidden';
-    catInfo.style.visibility = 'hidden'
-    // loader.style.visibility = 'hidden';
-
-    // loaderRef.classList.replace('loader', 'is-hidden');
-    // console.log(loaderRef.classList)
-    // loader.classList.replace('is-hidden', 'loader');
-    // console.log(loader.classList.value)
-    // selector.classList.add('is-hidden')
-    // catInfo.classList.add('is-hidden')
+    loader.classList.replace('is-hidden', 'loader');
+    selector.classList.add('is-hidden');
+    catInfo.classList.add('is-hidden');
 
     const breedId = evt.currentTarget.value
 
     fetchCatByBreed(breedId)
         .then(data => {
             catInfo.innerHTML = createMakcup(data)
-            catInfo.style.visibility = 'visible'
-            // loader.classList.replace('hidden', 'hidden')
+            catInfo.classList.remove('is-hidden');
+            loader.classList.replace('loader', 'is-hidden');
+            selector.classList.remove('is-hidden');
         })
         .catch(onFetchError)
-    // .finally(breedId)
-
-    // .finally(() => setTimeout(onFinally, 2000));
-    // if (breedId === 'abys') {
-    //     catInfo.innerHTML = ''
-    // } else {
-    //     fetchCatByBreed(breedId)
-    //         .then(data => {
-    //             loader.classList.replace('is-hidden', 'loader')
-    //             selector.classList.remove('is-hidden')
-    //             catInfo.innerHTML = createMakcup(data)
-    //         })
-    //         .catch(onFetchError)
-    // }
-
 }
 
 function createMakcup(arr) {
@@ -87,9 +62,8 @@ function createMakcup(arr) {
 };
 
 function onFetchError() {
-    // loader.style.visibility = 'hidden';
-    error.style.visibility = "visible"
-    // error.classList.add('error')
+    selector.classList.remove('is-hidden');
+    loader.classList.replace('loader', 'is-hidden');
 
     Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!',
         {
