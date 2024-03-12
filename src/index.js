@@ -10,8 +10,6 @@ const loader = document.querySelector('.loader')
 const error = document.querySelector('.error')
 
 loader.classList.replace('loader', 'is-hidden');
-// loader.style.visibility = "hidden"
-// loader.style.
 error.classList.add('is-hidden');
 catInfo.classList.add('is-hidden');
 
@@ -43,7 +41,6 @@ function onSelectorChange(evt) {
             catInfo.innerHTML = createMakcup(data)
             catInfo.classList.remove('is-hidden');
             loader.classList.replace('loader', 'is-hidden');
-            selector.classList.remove('is-hidden');
         })
         .catch(onFetchError)
 }
